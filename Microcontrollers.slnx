@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Controllers_Console_tester/Controllers_Console_tester.csproj" />
+  <Project Path="Microcontrollers/Microcontrollers.csproj" />
+</Solution>
