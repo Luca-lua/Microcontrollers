@@ -5,6 +5,7 @@ using System.Text;
 using SkiaSharp.Views.Desktop;
 using System.Threading;
 using System.Windows.Forms;
+using Microcontrollers.ControllerGUI;
 
 namespace Microcontrollers.GFX
 {
@@ -13,7 +14,7 @@ namespace Microcontrollers.GFX
         private static int width { get; set; } = 600;
         private static int height { get; set; } = 200;
         private static Thread? _uiThread;
-        private static ControllerGUI? _form;
+        private static ControllerGUIForm? _form;
 
         public static Action<SKCanvas>? OnDraw;
 
@@ -28,7 +29,7 @@ namespace Microcontrollers.GFX
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
-                _form = new ControllerGUI(width, height);
+                _form = new ControllerGUIForm(width, height);
                 _form.OnDraw = canvas => OnDraw?.Invoke(canvas);
 
                 Application.Run(_form);

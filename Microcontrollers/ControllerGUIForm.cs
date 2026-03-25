@@ -5,12 +5,12 @@ using SkiaSharp.Views.Desktop;
 
 namespace Microcontrollers
 {
-    public class ControllerGUI : Form
+    public class ControllerGUIForm : Form
     {
         private SKControl control;
         internal Action<SKCanvas> OnDraw;
 
-        public ControllerGUI(int widht, int height)
+        public ControllerGUIForm(int widht, int height)
         {
             Width = widht;
             Height = height;

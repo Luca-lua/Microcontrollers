@@ -1,6 +1,5 @@
 ﻿using Microcontrollers;
 using Microcontrollers.ControllerSystem;
-using Microcontrollers.Models;
 
 namespace Controllers_Console_tester
 {
@@ -8,9 +7,10 @@ namespace Controllers_Console_tester
     {
         static async Task Main(string[] args)
         {
-            Screen.test();
-            SimulationSpace simulation = new SimulationSpace();
-            simulation.AddMicrocontroller(new Controller1());
+            SimulationSpace simulation = new SimulationSpace(500,500);
+            simulation.addMonitor("mostunepicscreen",new System.Drawing.Size(32,32),new System.Drawing.Size(100,100));
+            simulation.AddMicrocontroller("Mostepiccontroller",new Controller1());
+            
             await simulation.RunControllers(new CancellationToken());
         }
     }

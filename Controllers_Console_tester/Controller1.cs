@@ -1,5 +1,4 @@
 ﻿using Microcontrollers.ControllerSystem;
-using Microcontrollers.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,9 +8,9 @@ namespace Controllers_Console_tester
 {
     internal class Controller1 : IMicrocontroller
     {
-        public void Execute(Controller_Input Input, Controller_Output Output)
+        public void Execute(Controller_Input Input, Controller_Output Output, ControllerGraphics Screen)
         {
-
+            Screen.drawCircle(5, 5, 10);
         }
     }
 }
