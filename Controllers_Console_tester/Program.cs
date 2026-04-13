@@ -8,7 +8,7 @@ namespace Controllers_Console_tester
         static async Task Main(string[] args)
         {
             SimulationSpace simulation = new SimulationSpace(500,500);
-            simulation.addMonitor("mostunepicscreen",new System.Drawing.Size(32,32),new System.Drawing.Size(100,100));
+            simulation.addMonitor("mostunepicscreen",new System.Drawing.Size(32,32),new System.Drawing.Size(250,250));
             simulation.AddMicrocontroller("Mostepiccontroller",new Controller1());
             
             await simulation.RunControllers(new CancellationToken());

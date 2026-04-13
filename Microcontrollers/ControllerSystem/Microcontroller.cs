@@ -19,13 +19,13 @@ namespace Microcontrollers.ControllerSystem
 
         internal SKBitmap video_buffer;
 
-        internal Microcontroller(IMicrocontroller controller, string diagram_name, Nodes nodecollection)
+        internal Microcontroller(Size internal_screen_buffer,IMicrocontroller controller, string diagram_name, Nodes nodecollection)
         {
             this.controller = controller;
             InComp = nodecollection.addCompositeNode(new CompNode(false));
             OutComp = nodecollection.addCompositeNode(new CompNode(true));
             VideoNode = nodecollection.addVideoNode(new VideoNode(true));
-            video_buffer = new SKBitmap();
+            Controller_GraphicsSetup(new Size(internal_screen_buffer.Width, internal_screen_buffer.Height));
             name = diagram_name;
             
         }
@@ -44,6 +44,7 @@ namespace Microcontrollers.ControllerSystem
             controller.Execute(input,output,screen);
 
             video_buffer = screen.getChanged();
+            VideoNode.value = video_buffer;
             OutComp.Transfer();
             VideoNode.Transfer();
         }

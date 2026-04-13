@@ -1,4 +1,5 @@
 ﻿using Microcontrollers.ConnectionSystem;
+using Microcontrollers.ControllerSystem;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace Microcontrollers.Parts
         internal Size output_size;
         internal VideoNode videoIn;
 
-        internal Monitor(string diagram_name,Size resolution_px, Size real_size_px, Size ?top_left_corner_px = null) 
+        internal Monitor(Nodes nodes,string diagram_name,Size resolution_px, Size real_size_px, Size ?top_left_corner_px = null) 
         {
             name = name;
             if (resolution_px.Width < 10 || resolution_px.Height < 10)
@@ -47,7 +48,7 @@ namespace Microcontrollers.Parts
             topleft = top_left_corner_px.HasValue ? top_left_corner_px.Value : new Size(0,0);
             real_size = real_size_px;
             output_size = resolution_px;
-            videoIn = new VideoNode(false);
+            videoIn = nodes.addVideoNode(new VideoNode(false));
         }
         
         internal SKBitmap ReturnVideo()
@@ -55,7 +56,17 @@ namespace Microcontrollers.Parts
             SKBitmap video;
             if (videoIn.connected_node != null || !videoIn.value.IsEmpty)
             {
-                 video = videoIn.value;
+                if (videoIn.value.IsEmpty)
+                {
+                    video = new SKBitmap(this.output_size.Width, this.output_size.Height);
+                    SKColor color = new SKColor(0, 0, 0);
+                    video.Erase(color);
+                }
+                else
+                {
+                    video = videoIn.value;
+                }
+
             }
             else
             {

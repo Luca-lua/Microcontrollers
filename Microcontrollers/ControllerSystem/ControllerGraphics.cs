@@ -13,30 +13,38 @@ namespace Microcontrollers.ControllerSystem
     public class ControllerGraphics
     {
         private SKCanvas active_buffer;
+        private SKBitmap active_bitmap;
         private SKPaint color;
+        private readonly SKPaint _black;
         private int width;
         private int height;
         internal ControllerGraphics(SKBitmap Controller_Graphics_buffer) 
         {
+            active_bitmap = Controller_Graphics_buffer;
             active_buffer = new SKCanvas(Controller_Graphics_buffer);
             width = Controller_Graphics_buffer.Width;
             height = Controller_Graphics_buffer.Height;
             color = new SKPaint();
             color.Color = new SKColor(255, 255, 255);
+            _black = new SKPaint();
+            _black.Color = new SKColor(0, 0, 0);
         }
-
         public void setColor(byte r, byte g, byte b, byte a = 255)
         {
             color.Color = new SKColor(r, g, b, a);
         }
+        public void drawClear()
+        {
+            active_buffer.DrawRect(0,0,this.width,this.height, _black);
+        }
         public void drawCircle(int x, int y, int radius)
         {
-            for (double r = 0; r < Math.PI; r = r + Math.PI / 20)
+            for (double r = 0; r < 2*Math.PI; r = r + Math.PI / 100)
             {
-                int x1 = (int)Math.Cos(r) * radius + x;
-                int y1 = (int)Math.Sin(r) * radius + y;
-                int x2 = (int)Math.Cos(r - Math.PI / 20) * radius + x;
-                int y2 = (int)Math.Sin(r - Math.PI / 20) * radius + y;
+                int x1 = (int)(Math.Cos(r) * radius + x);
+                int y1 = (int)(Math.Sin(r) * radius + y);
+                int x2 = (int)(Math.Cos(r - Math.PI / 100) * radius + x);
+                int y2 = (int)(Math.Sin(r - Math.PI / 100) * radius + y);
 
                 active_buffer.DrawLine(x1, y1, x2, y2, color);
             }
@@ -94,10 +102,9 @@ namespace Microcontrollers.ControllerSystem
         {
             try
             {
-                var value = active_buffer.Surface.Snapshot().ToBitmap().ToSKBitmap();
-                return value;
+                return active_bitmap;
             }
-            catch(Exception) { }
+            catch(Exception ex) { }
             return new SKBitmap();
         }
     }

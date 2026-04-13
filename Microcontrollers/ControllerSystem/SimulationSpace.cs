@@ -1,4 +1,5 @@
-﻿using Microcontrollers.ControllerGUI;
+﻿using Microcontrollers.ConnectionSystem;
+using Microcontrollers.ControllerGUI;
 using Microcontrollers.Diagram;
 using System;
 using System.Collections.Generic;
@@ -24,21 +25,28 @@ namespace Microcontrollers.ControllerSystem
         }
         public void addMonitor(string diagram_name, Size resolution_px, Size real_size_px, Size? top_left_corner_px = null)
         {
-            Microcontrollers.Parts.Monitor monitor = new Microcontrollers.Parts.Monitor(diagram_name,resolution_px, real_size_px,top_left_corner_px);
+            Microcontrollers.Parts.Monitor monitor = new Microcontrollers.Parts.Monitor(nodecollection,diagram_name,resolution_px, real_size_px,top_left_corner_px);
             monitors.Add(monitor);
         }
 
         public void AddMicrocontroller(string diagram_name,IMicrocontroller microcontroller)
         {
-            controllers.Add( new Microcontroller(microcontroller,diagram_name, nodecollection));
+            Size buffer_size = new Size(0,0);
+            foreach (Microcontrollers.Parts.Monitor monitor in monitors)
+            {
+                if(monitor.output_size.Width * monitor.output_size.Height > buffer_size.Width * buffer_size.Height)
+                {
+                    buffer_size = monitor.output_size;
+                }
+            }
+            controllers.Add( new Microcontroller(buffer_size, microcontroller,diagram_name, nodecollection));
         }
 
         public async Task RunControllers(CancellationToken cts)
         {
             JsonDiagramHandler diagramHandler = new JsonDiagramHandler("./scematic.json",this);
-            diagramHandler.writeJson();
-
             diagramHandler.connectionsFromJson();
+
             while (!cts.IsCancellationRequested)
             {
                 stopwatch.Reset();
@@ -54,7 +62,8 @@ namespace Microcontrollers.ControllerSystem
                 stopwatch.Stop();
                 await Task.Delay(Math.Clamp(17 - (int)stopwatch.ElapsedTicks, 0, 100));
             }
-           
+
+            diagramHandler.writeJson();
         }
     }
 }

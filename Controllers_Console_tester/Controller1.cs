@@ -10,7 +10,8 @@ namespace Controllers_Console_tester
     {
         public void Execute(Controller_Input Input, Controller_Output Output, ControllerGraphics Screen)
         {
-            Screen.drawCircle(5, 5, 10);
+            Screen.drawClear();
+            Screen.drawCircle(16, 16, 16);
         }
     }
 }

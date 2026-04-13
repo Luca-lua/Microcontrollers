@@ -40,9 +40,68 @@ namespace Microcontrollers.Diagram
         {
             string json = File.ReadAllText(jsonPath);
             Scematiccontainer scematiccontainer = JsonConvert.DeserializeObject<Scematiccontainer> (json);
+
+            // VideoNodes
             foreach(VideoNode node in sim.nodecollection.VideoNodes)
             {
-                //implement rest here node import
+                foreach(ScematicMicrocontroller scematicMicrocontroller in scematiccontainer.microcontrollerList)
+                {
+                    if(scematicMicrocontroller.VideoNode.id == node.id)
+                    {
+                        ScematicNode scematicNode = scematicMicrocontroller.VideoNode;
+                        node.IsOutput = scematicNode.isOutput;
+                        foreach(VideoNode target in sim.nodecollection.VideoNodes)
+                        {
+                            if(target.id == scematicNode.target_id)
+                            {
+                                node.connected_node = target;
+                                target.connected_node = node;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // CompInNodes
+            foreach (CompNode node in sim.nodecollection.CompositeNodes)
+            {
+                foreach (ScematicMicrocontroller scematicMicrocontroller in scematiccontainer.microcontrollerList)
+                {
+                    if (scematicMicrocontroller.VideoNode.id == node.id)
+                    {
+                        ScematicNode scematicNode = scematicMicrocontroller.CompInNode;
+                        node.IsOutput = scematicNode.isOutput;
+                        foreach (CompNode target in sim.nodecollection.CompositeNodes)
+                        {
+                            if (target.id == scematicNode.target_id)
+                            {
+                                node.connected_node = target;
+                                target.connected_node = node;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // CompOutNodes
+            foreach (CompNode node in sim.nodecollection.CompositeNodes)
+            {
+                foreach (ScematicMicrocontroller scematicMicrocontroller in scematiccontainer.microcontrollerList)
+                {
+                    if (scematicMicrocontroller.VideoNode.id == node.id)
+                    {
+                        ScematicNode scematicNode = scematicMicrocontroller.CompOutNode;
+                        node.IsOutput = scematicNode.isOutput;
+                        foreach (CompNode target in sim.nodecollection.CompositeNodes)
+                        {
+                            if (target.id == scematicNode.target_id)
+                            {
+                                node.connected_node = target;
+                                target.connected_node = node;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
