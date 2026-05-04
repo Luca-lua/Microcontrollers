@@ -27,6 +27,8 @@ namespace Microcontrollers.Diagram
         }
         internal void writeJson()
         {
+
+            // Microcontroller
             List<ScematicMicrocontroller> scematiclist = new List<ScematicMicrocontroller>();
             foreach(Microcontroller controller in sim.controllers)
             {
@@ -34,7 +36,16 @@ namespace Microcontrollers.Diagram
             }
             Scematiccontainer scematiccontainer = new Scematiccontainer();
             scematiccontainer.microcontrollerList = scematiclist;
-            File.WriteAllText(jsonPath, JsonConvert.SerializeObject(scematiccontainer,Formatting.Indented));
+
+            // Monitors
+            List<ScematicMonitor> scematicMonitors = new List<ScematicMonitor>();
+            foreach(Microcontrollers.Parts.Monitor monitor in sim.monitors)
+            {
+                scematicMonitors.Add(new ScematicMonitor(monitor));
+            }
+            scematiccontainer.scematicMonitors = scematicMonitors;
+
+            File.WriteAllText(jsonPath, JsonConvert.SerializeObject(scematiccontainer, Formatting.Indented));
         }
         internal void connectionsFromJson()
         {
@@ -67,7 +78,7 @@ namespace Microcontrollers.Diagram
             {
                 foreach (ScematicMicrocontroller scematicMicrocontroller in scematiccontainer.microcontrollerList)
                 {
-                    if (scematicMicrocontroller.VideoNode.id == node.id)
+                    if (scematicMicrocontroller.CompInNode.id == node.id)
                     {
                         ScematicNode scematicNode = scematicMicrocontroller.CompInNode;
                         node.IsOutput = scematicNode.isOutput;
@@ -88,7 +99,7 @@ namespace Microcontrollers.Diagram
             {
                 foreach (ScematicMicrocontroller scematicMicrocontroller in scematiccontainer.microcontrollerList)
                 {
-                    if (scematicMicrocontroller.VideoNode.id == node.id)
+                    if (scematicMicrocontroller.CompOutNode.id == node.id)
                     {
                         ScematicNode scematicNode = scematicMicrocontroller.CompOutNode;
                         node.IsOutput = scematicNode.isOutput;

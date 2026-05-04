@@ -10,8 +10,7 @@ namespace Controllers_Console_tester
     {
         public void Execute(Controller_Input Input, Controller_Output Output, ControllerGraphics Screen)
         {
-            Screen.drawClear();
-            Screen.drawCircle(16, 16, 16);
+            Output.SetNumber(1, 16/1.5);
         }
     }
 }

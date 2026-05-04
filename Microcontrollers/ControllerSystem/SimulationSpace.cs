@@ -25,7 +25,7 @@ namespace Microcontrollers.ControllerSystem
         }
         public void addMonitor(string diagram_name, Size resolution_px, Size real_size_px, Size? top_left_corner_px = null)
         {
-            Microcontrollers.Parts.Monitor monitor = new Microcontrollers.Parts.Monitor(nodecollection,diagram_name,resolution_px, real_size_px,top_left_corner_px);
+            Microcontrollers.Parts.Monitor monitor = new Microcontrollers.Parts.Monitor(diagram_name,nodecollection,diagram_name,resolution_px, real_size_px,top_left_corner_px);
             monitors.Add(monitor);
         }
 
@@ -46,6 +46,7 @@ namespace Microcontrollers.ControllerSystem
         {
             JsonDiagramHandler diagramHandler = new JsonDiagramHandler("./scematic.json",this);
             diagramHandler.connectionsFromJson();
+            //diagramHandler.writeJson();
 
             while (!cts.IsCancellationRequested)
             {

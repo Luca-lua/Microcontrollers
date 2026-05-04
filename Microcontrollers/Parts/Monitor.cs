@@ -20,16 +20,16 @@ namespace Microcontrollers.Parts
     internal class Monitor
     {
         //Diagram infos
-        internal string name;
+        internal string _name;
 
         internal Size topleft;
         internal Size real_size;
         internal Size output_size;
         internal VideoNode videoIn;
 
-        internal Monitor(Nodes nodes,string diagram_name,Size resolution_px, Size real_size_px, Size ?top_left_corner_px = null) 
+        internal Monitor(string name,Nodes nodes,string diagram_name,Size resolution_px, Size real_size_px, Size ?top_left_corner_px = null) 
         {
-            name = name;
+            _name = name;
             if (resolution_px.Width < 10 || resolution_px.Height < 10)
             {
                 throw new MonitorSizeException("Monitor cannot be smaller than 10 on x or y");
