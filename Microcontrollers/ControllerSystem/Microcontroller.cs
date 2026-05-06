@@ -17,6 +17,8 @@ namespace Microcontrollers.ControllerSystem
         internal CompNode OutComp;
         internal VideoNode VideoNode;
 
+        internal Size screensize = new Size(5, 5);
+
         internal SKBitmap video_buffer;
 
         internal Microcontroller(Size internal_screen_buffer,IMicrocontroller controller, string diagram_name, Nodes nodecollection)
@@ -32,7 +34,10 @@ namespace Microcontrollers.ControllerSystem
 
         internal void Controller_GraphicsSetup(Size size)
         {
-            video_buffer = new SKBitmap(size.Width, size.Height);
+            if (size != screensize)
+            {
+                video_buffer = new SKBitmap(size.Width, size.Height);
+            }
         }
 
         internal void Execute()
@@ -47,6 +52,7 @@ namespace Microcontrollers.ControllerSystem
             VideoNode.value = video_buffer;
             OutComp.Transfer();
             VideoNode.Transfer();
+            Controller_GraphicsSetup(VideoNode.screen_size_return == null ? screensize : (Size)VideoNode.screen_size_return);
         }
     }
 }

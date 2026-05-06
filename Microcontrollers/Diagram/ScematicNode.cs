@@ -8,12 +8,15 @@ namespace Microcontrollers.Diagram
 {
     public class ScematicNode
     {
+        public string owner {  get; set; }
         public int id { get; set; }
         public bool isOutput { get; set; }
         public NodeType nodeType { get; set; }
         public int ?target_id { get; set; }
-        public ScematicNode(int node_id, bool node_output, NodeType type, int ?connected_node_id)
+        internal object value { get; set; }
+        public ScematicNode(string owner,int node_id,bool node_output, NodeType type, int ?connected_node_id = null)
         { 
+            this.owner = owner;
             this.id = node_id;
             this.isOutput = node_output;
             this.nodeType = type;

@@ -16,8 +16,8 @@ namespace Microcontrollers.ControllerSystem
         private SKBitmap active_bitmap;
         private SKPaint color;
         private readonly SKPaint _black;
-        private int width;
-        private int height;
+        internal int width;
+        internal int height;
         internal ControllerGraphics(SKBitmap Controller_Graphics_buffer) 
         {
             active_bitmap = Controller_Graphics_buffer;

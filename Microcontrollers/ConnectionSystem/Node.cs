@@ -1,4 +1,5 @@
-﻿using SkiaSharp;
+﻿using Microcontrollers.ControllerSystem;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -18,6 +19,7 @@ namespace Microcontrollers.ConnectionSystem
 
     internal class VideoNode : INode<SKBitmap>
     {
+        public Size? screen_size_return { get; set; }
         public int id { get; set; }
         public SKBitmap value { get; set; }
         public INode<SKBitmap>? connected_node { get; set; }

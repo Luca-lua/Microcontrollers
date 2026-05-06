@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Channels;
 
 namespace Microcontrollers.ConnectionSystem
 {
@@ -14,16 +15,16 @@ namespace Microcontrollers.ConnectionSystem
     {
         public CompositeInvalidNumberException(string message) : base(message) { }
     }
-    internal class Composite
+    public class Composite
     {
-        internal Dictionary<int ,bool?> OnOffValues = new Dictionary<int ,bool?>();
-        internal Dictionary<int, double?> NumberValues = new Dictionary<int, double?>();
-        internal Composite()
+        public Dictionary<int ,bool> OnOffValues { get; set; } = new Dictionary<int ,bool>();
+        public Dictionary<int, double> NumberValues { get; set; } = new Dictionary<int, double>();
+        public Composite()
         {
             for (int i = 0; i <= 32; i++)
             {
-                OnOffValues[i] = null;
-                NumberValues[i] = null;
+                OnOffValues[i] = false;
+                NumberValues[i] = 0;
             }
         }
     }

@@ -12,7 +12,10 @@ namespace Controllers_Console_tester
             Screen.setColor(0,0,0);
             Screen.drawClear();
             Screen.setColor(255, 255, 255);
-            Screen.drawCircleF(16,16,(int)Input.GetNumber(1));
+            if (Input.GetBool(1))
+            {
+                Screen.drawCircleF(32, 32, 25);
+            }
         }
     }
 }

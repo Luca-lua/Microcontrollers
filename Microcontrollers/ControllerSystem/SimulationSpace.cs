@@ -1,6 +1,7 @@
 ﻿using Microcontrollers.ConnectionSystem;
 using Microcontrollers.ControllerGUI;
 using Microcontrollers.Diagram;
+using Microcontrollers.PartSystem;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,6 +13,7 @@ namespace Microcontrollers.ControllerSystem
     {
         internal readonly List<Microcontroller> controllers;
         internal readonly List<Microcontrollers.Parts.Monitor> monitors;
+        internal List<Linker> gates = new List<Linker>();
         private static GUIDrawHandler drawingHandler;
         private Stopwatch stopwatch;
         internal Nodes nodecollection;
@@ -22,6 +24,11 @@ namespace Microcontrollers.ControllerSystem
             monitors = new List<Parts.Monitor>();
             stopwatch = new Stopwatch();
             nodecollection = new Nodes();
+        }
+        public void addLogicGate(int id,ILogicGate gate)
+        {
+            gate.Construct();
+            gates.Add(new Linker(id,gate, nodecollection));
         }
         public void addMonitor(string diagram_name, Size resolution_px, Size real_size_px, Size? top_left_corner_px = null)
         {
@@ -46,7 +53,8 @@ namespace Microcontrollers.ControllerSystem
         {
             JsonDiagramHandler diagramHandler = new JsonDiagramHandler("./scematic.json",this);
             diagramHandler.connectionsFromJson();
-            //diagramHandler.writeJson();
+            gates.ForEach(a => a.Link(nodecollection));
+            diagramHandler.writeJson();
 
             while (!cts.IsCancellationRequested)
             {
@@ -55,6 +63,10 @@ namespace Microcontrollers.ControllerSystem
                 foreach (var controller in controllers)
                 {
                     controller.Execute();
+                }
+                foreach (var gate in gates)
+                {
+                    gate.ExecuteLogic(nodecollection);
                 }
                 foreach (var monitor in monitors)
                 {

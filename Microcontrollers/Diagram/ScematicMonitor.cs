@@ -17,7 +17,7 @@ namespace Microcontrollers.Diagram
                 id = monitor.videoIn.connected_node.id;
             }
 
-            this.videoIn = new ScematicNode(monitor.videoIn.id,false,NodeType.Video,id);
+            this.videoIn = new ScematicNode(monitor._name,monitor.videoIn.id,false, NodeType.Video,id);
             this.name = monitor._name;
         }
 

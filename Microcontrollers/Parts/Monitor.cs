@@ -66,7 +66,6 @@ namespace Microcontrollers.Parts
                 {
                     video = videoIn.value;
                 }
-
             }
             else
             {
@@ -74,6 +73,10 @@ namespace Microcontrollers.Parts
                 SKColor color = new SKColor(0,0,0);
                 video.Erase(color);
             }
+
+            // send monitor size
+            this.videoIn.screen_size_return = real_size;
+
             return video;
         }
     }

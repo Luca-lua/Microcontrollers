@@ -7,10 +7,10 @@ namespace Microcontrollers.ControllerSystem
 {
     public class Controller_Output
     {
-        internal Dictionary<int, double?> NumberOutputs = new Dictionary<int, double?>();
-        internal Dictionary<int, bool?> BoolOutputs = new Dictionary<int, bool?>();
+        internal Dictionary<int, double> NumberOutputs = new Dictionary<int, double>();
+        internal Dictionary<int, bool> BoolOutputs = new Dictionary<int, bool>();
 
-        internal Controller_Output(Dictionary<int, bool?> bool_outputs, Dictionary<int, double?> number_outputs) 
+        internal Controller_Output(Dictionary<int, bool> bool_outputs, Dictionary<int, double> number_outputs) 
         {
             BoolOutputs = bool_outputs;
             NumberOutputs = number_outputs;

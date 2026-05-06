@@ -7,10 +7,10 @@ namespace Microcontrollers.ControllerSystem
 {
     public class Controller_Input
     {
-        internal Dictionary<int, double?> NumberInputs = new Dictionary<int, double?>();
-        internal Dictionary<int, bool?> BoolInputs = new Dictionary<int, bool?>();
+        internal Dictionary<int, double> NumberInputs = new Dictionary<int, double>();
+        internal Dictionary<int, bool> BoolInputs = new Dictionary<int, bool>();
 
-        internal Controller_Input(Dictionary<int,bool?> bool_inputs,Dictionary<int,double?> number_inputs) 
+        internal Controller_Input(Dictionary<int,bool> bool_inputs,Dictionary<int,double> number_inputs) 
         {
             NumberInputs = number_inputs;
             BoolInputs = bool_inputs;
