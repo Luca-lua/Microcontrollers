@@ -5,6 +5,7 @@ using Microcontrollers.PartSystem;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Numerics;
 using System.Text;
 
 namespace Microcontrollers.ControllerSystem
@@ -54,7 +55,7 @@ namespace Microcontrollers.ControllerSystem
             JsonDiagramHandler diagramHandler = new JsonDiagramHandler("./scematic.json",this);
             diagramHandler.connectionsFromJson();
             gates.ForEach(a => a.Link(nodecollection));
-            diagramHandler.writeJson();
+            diagramHandler.writeJson(this);
 
             while (!cts.IsCancellationRequested)
             {
@@ -70,13 +71,27 @@ namespace Microcontrollers.ControllerSystem
                 }
                 foreach (var monitor in monitors)
                 {
-                    drawingHandler.DrawMonitor(monitor);
+                    drawingHandler.DrawMonitor(monitor,out Vector2? click);
+                    if (click != null)
+                    {
+                        monitor.touchInfo.value.OnOffValues[1] = true;
+                        monitor.touchInfo.value.NumberValues[1] = click.Value.X/monitor.real_size.Width*monitor.output_size.Width;
+                        monitor.touchInfo.value.NumberValues[2] = click.Value.Y/monitor.real_size.Height*monitor.output_size.Height;
+                        monitor.touchInfo.Transfer();
+                    }
+                    else
+                    {
+                        monitor.touchInfo.value.OnOffValues[1] = false;
+                        monitor.touchInfo.value.NumberValues[1] = 0;
+                        monitor.touchInfo.value.NumberValues[2] = 0;
+                        monitor.touchInfo.Transfer();
+                    }
                 }
                 stopwatch.Stop();
                 await Task.Delay(Math.Clamp(17 - (int)stopwatch.ElapsedTicks, 0, 100));
             }
 
-            diagramHandler.writeJson();
+            diagramHandler.writeJson(this);
         }
     }
 }

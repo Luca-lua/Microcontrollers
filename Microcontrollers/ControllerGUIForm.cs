@@ -7,7 +7,7 @@ namespace Microcontrollers
 {
     public class ControllerGUIForm : Form
     {
-        private SKControl control;
+        internal SKControl control;
         internal Action<SKCanvas> OnDraw;
 
         public ControllerGUIForm(int widht, int height)

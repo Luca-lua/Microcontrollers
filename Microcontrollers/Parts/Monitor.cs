@@ -26,6 +26,7 @@ namespace Microcontrollers.Parts
         internal Size real_size;
         internal Size output_size;
         internal VideoNode videoIn;
+        internal CompNode touchInfo;
 
         internal Monitor(string name,Nodes nodes,string diagram_name,Size resolution_px, Size real_size_px, Size ?top_left_corner_px = null) 
         {
@@ -49,6 +50,7 @@ namespace Microcontrollers.Parts
             real_size = real_size_px;
             output_size = resolution_px;
             videoIn = nodes.addVideoNode(new VideoNode(false));
+            touchInfo = nodes.addCompositeNode(new CompNode(true));
         }
         
         internal SKBitmap ReturnVideo()
@@ -76,6 +78,7 @@ namespace Microcontrollers.Parts
 
             // send monitor size
             this.videoIn.screen_size_return = real_size;
+            touchInfo.value.OnOffValues[1] = false;
 
             return video;
         }

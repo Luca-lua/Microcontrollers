@@ -27,9 +27,9 @@ namespace Microcontrollers.Diagram
             }
             sim = simulator;
         }
-        internal void writeJson()
+        internal void writeJson(SimulationSpace sim_new)
         {
-
+            sim = sim_new;
             // Microcontroller
             List<ScematicMicrocontroller> scematiclist = new List<ScematicMicrocontroller>();
             foreach(Microcontroller controller in sim.controllers)
@@ -49,7 +49,8 @@ namespace Microcontrollers.Diagram
 
             scematiccontainer.GateNodes = new List<ScematicNode>();
 
-            foreach(var linker in sim.gates)
+
+            foreach (var linker in sim.gates)
             {
                 // Comp
                 foreach(CompositeGateNode cmpNode in linker.gate.CompNodes)

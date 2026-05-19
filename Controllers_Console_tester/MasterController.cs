@@ -7,15 +7,19 @@ namespace Controllers_Console_tester
 {
     internal class MasterController : IMicrocontroller
     {
+        private int x = 0;
+        private int y = 0;
         public void Execute(Controller_Input Input, Controller_Output Output, ControllerGraphics Screen)
         {
+            if (Input.GetNumber(1) != 0 || Input.GetNumber(2) != 0)
+            {
+                x = (int)Input.GetNumber(1);
+                y = (int)Input.GetNumber(2);
+            }
             Screen.setColor(0,0,0);
             Screen.drawClear();
             Screen.setColor(255, 255, 255);
-            if (Input.GetBool(1))
-            {
-                Screen.drawCircleF(32, 32, 25);
-            }
+            Screen.drawCircleF(x, y, 25);
         }
     }
 }

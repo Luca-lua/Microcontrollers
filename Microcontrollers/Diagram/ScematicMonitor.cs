@@ -8,6 +8,7 @@ namespace Microcontrollers.Diagram
     {
         public string name;
         public ScematicNode videoIn;
+        public ScematicNode CompositeOut;
         public ScematicMonitor() { }
         internal ScematicMonitor(Microcontrollers.Parts.Monitor monitor)
         {
@@ -18,6 +19,7 @@ namespace Microcontrollers.Diagram
             }
 
             this.videoIn = new ScematicNode(monitor._name,monitor.videoIn.id,false, NodeType.Video,id);
+            this.CompositeOut = new ScematicNode(monitor._name,monitor.touchInfo.id,true,NodeType.Composite,id);
             this.name = monitor._name;
         }
 
