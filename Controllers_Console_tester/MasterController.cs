@@ -11,15 +11,14 @@ namespace Controllers_Console_tester
         private int y = 0;
         public void Execute(Controller_Input Input, Controller_Output Output, ControllerGraphics Screen)
         {
-            if (Input.GetNumber(1) != 0 || Input.GetNumber(2) != 0)
-            {
-                x = (int)Input.GetNumber(1);
-                y = (int)Input.GetNumber(2);
-            }
-            Screen.setColor(0,0,0);
+            x = (int)Input.GetNumber(1);
+            y = (int)Input.GetNumber(2);
+            Screen.setColor(0, 0, 0);
             Screen.drawClear();
             Screen.setColor(255, 255, 255);
-            Screen.drawCircleF(x, y, 25);
+            Screen.drawCircle(x, y, 10);
         }
+
+        
     }
 }
