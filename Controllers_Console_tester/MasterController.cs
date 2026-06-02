@@ -19,6 +19,6 @@ namespace Controllers_Console_tester
             Screen.drawCircle(x, y, 10);
         }
 
-        
+ 
     }
 }

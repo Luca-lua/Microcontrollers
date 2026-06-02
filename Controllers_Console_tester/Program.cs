@@ -12,6 +12,7 @@ namespace Controllers_Console_tester
             simulation.addMonitor("Screen1",new System.Drawing.Size(64,64),new System.Drawing.Size(250,250));
             simulation.AddMicrocontroller("Controller1",new Controller1());
             simulation.AddMicrocontroller("MasterController", new MasterController());
+            simulation.addLogicGate(1, new AndGate());
             
             await simulation.RunControllers(new CancellationToken());
         }

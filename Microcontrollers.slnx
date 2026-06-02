@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="Controllers_Console_tester/Controllers_Console_tester.csproj" />
   <Project Path="Microcontrollers/Microcontrollers.csproj" />
+  <Project Path="ScematicEditor/ScematicEditor/ScematicEditor.csproj" />
 </Solution>
