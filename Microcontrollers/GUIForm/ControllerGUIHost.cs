@@ -53,7 +53,17 @@ namespace Microcontrollers.GFX
         }
         public static void Redraw()
         {
-            _form?.Invoke(() => _form.Redraw());
+            try
+            {
+                _form?.Invoke(() => _form.Redraw());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(@"----- STA Thread exited -----");
+                Console.WriteLine("> Exiting Application.");
+                Console.WriteLine("..");
+                Environment.Exit(0);
+            }
         }
         public static bool TryGetClick(out Vector2? click_r)
         {

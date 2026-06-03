@@ -1,23 +1,33 @@
 ﻿using Microcontrollers.ControllerSystem;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Text;
 
 namespace Controllers_Console_tester
 {
     internal class Controller1 : IMicrocontroller
     {
-        static int counter = 1;
-        static bool state = false;
+        // Variables that remain each run
+        private int x = 0;
+        private int y = 0;
         public void Execute(Controller_Input Input, Controller_Output Output, ControllerGraphics Screen)
         {
-            counter++;
-            if(counter % 50 == 0)
+            // get x and y touch coordiantes of screen
+            x = (int)Input.GetNumber(1);
+            y = (int)Input.GetNumber(2);
+            Screen.setColor(0, 0, 0);
+            Screen.drawClear();
+
+            // get OnOff on channel 1
+            if (Input.GetBool(1))
             {
-                state = !state;
+                Screen.setColor(255, 255, 255);
             }
-            Output.SetBool(1, state);
+
+            // Draw visual indication of input signals
+            Screen.drawCircle(x, y, 10);
         }
+
+ 
     }
 }

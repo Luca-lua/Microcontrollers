@@ -22,13 +22,13 @@ namespace Microcontrollers.Parts
 
         public void Execute()
         {
-            if(OnOffNodes.FindLast(node => node._id == 1).value && OnOffNodes.FindLast(node => node._id == 2).value)
+            if(OnOffNodes.Find(node => node._id == 1).value && OnOffNodes.Find(node => node._id == 2).value)
             {
-                OnOffNodes.FindLast(node => node._id == 3).value = true;
+                OnOffNodes.Find(node => node._id == 3).value = true;
             }
             else
             {
-                OnOffNodes.FindLast(node => node._id == 3).value = false;
+                OnOffNodes.Find(node => node._id == 3).value = false;
             }
         }
     }
