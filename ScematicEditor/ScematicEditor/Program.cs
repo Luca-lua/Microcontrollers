@@ -36,7 +36,7 @@ namespace ScematicEditor
         internal static int offset_x = 0;
         internal static int offset_y = 0;
         internal static double zoom = 2;
-        private static string path = "C:\\Users\\E2658\\source\\repos\\Microcontrollers\\Controllers_Console_tester\\bin\\Debug\\net10.0-windows\\";
+        private static string path = JsonPath.readFile();
         private readonly JsonDiagramHandler diagram = new JsonDiagramHandler(path+ "scematic.json");
         private Scematiccontainer container;
 

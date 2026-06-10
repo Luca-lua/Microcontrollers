@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Microcontrollers.Parts
 {
-    public class AndGate : ILogicGate
+    public class OrGate : ILogicGate
     {
         public List<NumberGateNode> NumberNodes { get; } = new List<NumberGateNode>();
         public List<OnOffGateNode> OnOffNodes { get; } = new List<OnOffGateNode> { };
@@ -22,7 +22,7 @@ namespace Microcontrollers.Parts
 
         public void Execute()
         {
-            if(OnOffNodes.Find(node => node._id == 1).value && OnOffNodes.Find(node => node._id == 2).value)
+            if(OnOffNodes.Find(node => node._id == 1).value || OnOffNodes.Find(node => node._id == 2).value)
             {
                 OnOffNodes.Find(node => node._id == 3).value = true;
             }
