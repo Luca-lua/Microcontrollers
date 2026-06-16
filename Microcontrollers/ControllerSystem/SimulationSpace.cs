@@ -52,7 +52,7 @@ namespace Microcontrollers.ControllerSystem
 
         public async Task RunControllers(CancellationToken cts)
         {
-            JsonDiagramHandler diagramHandler = new JsonDiagramHandler("./scematic.json",this);
+            JsonDiagramHandler diagramHandler = new JsonDiagramHandler(".\\scematic.json",this);
             diagramHandler.connectionsFromJson();
             gates.ForEach(a => a.Link(nodecollection));
             diagramHandler.writeJson(this);

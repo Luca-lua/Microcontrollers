@@ -19,16 +19,24 @@ namespace Microcontrollers.Diagram
         private SimulationSpace sim {  get; set; }
         internal JsonDiagramHandler(string path,SimulationSpace simulator)
         {
+            Console.WriteLine("--- Initializing JsonDiagram ---");
             jsonPath = path;
             if(!File.Exists(jsonPath))
             {
                 FileStream file = File.Create(jsonPath);
+                Console.WriteLine($"> Creating new JsonDiagram at [{Path.GetFullPath(jsonPath)}]");
                 file.Close();
+            }
+            else
+            {
+                Console.WriteLine($"JsonDiagram found at [{Path.GetFullPath(jsonPath)}]");
             }
             sim = simulator;
         }
         internal void writeJson(SimulationSpace sim_new)
         {
+            Console.WriteLine("--- Writing JsonDiagram ---");
+
             sim = sim_new;
             // Microcontroller
             List<ScematicMicrocontroller> scematiclist = new List<ScematicMicrocontroller>();
@@ -78,11 +86,20 @@ namespace Microcontrollers.Diagram
         }
         internal void connectionsFromJson()
         {
+            Console.WriteLine("--- Reading JsonDiagram ---");
+
             string json = File.ReadAllText(jsonPath);
+            if(json == null || json == "" || json.Length == 0)
+            {
+                Console.WriteLine("> JsonDiagram empty or invalid");
+                return;
+            }
+
             Scematiccontainer scematiccontainer = JsonConvert.DeserializeObject<Scematiccontainer> (json);
 
             if(scematiccontainer == null)
             {
+                Console.WriteLine("> Cannot deserialize JsonDiagram");
                 return;
             }
 
@@ -101,6 +118,7 @@ namespace Microcontrollers.Diagram
                             {
                                 node.connected_node = target;
                                 target.connected_node = node;
+                                Console.WriteLine($"node [{target.id}] >> [{node.id}]");
                             }
                         }
                     }
