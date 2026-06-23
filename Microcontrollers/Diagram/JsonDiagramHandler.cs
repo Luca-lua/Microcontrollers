@@ -10,6 +10,7 @@ using System.Configuration;
 using System.Drawing.Drawing2D;
 using System.Text;
 using System.Text.Json;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace Microcontrollers.Diagram
 {
@@ -140,6 +141,7 @@ namespace Microcontrollers.Diagram
                             {
                                 node.connected_node = target;
                                 target.connected_node = node;
+                                Console.WriteLine($"node [{target.id}] >> [{node.id}]");
                             }
                         }
                     }
@@ -161,6 +163,7 @@ namespace Microcontrollers.Diagram
                             {
                                 node.connected_node = target;
                                 target.connected_node = node;
+                                Console.WriteLine($"node [{target.id}] >> [{node.id}]");
                             }
                         }
                     }
@@ -182,6 +185,8 @@ namespace Microcontrollers.Diagram
                             {
                                 node.connected_node = target;
                                 target.connected_node = node;
+                                Console.WriteLine($"node [{target.id}] >> [{node.id}]");
+
                             }
                         }
                     }
@@ -203,6 +208,7 @@ namespace Microcontrollers.Diagram
                             {
                                 node.connected_node = target;
                                 target.connected_node = node;
+                                Console.WriteLine($"node [{target.id}] >> [{node.id}]");
                             }
                         }
                     }
@@ -263,6 +269,8 @@ namespace Microcontrollers.Diagram
                         }
                         own_node.connected_node = target_node;
                         target_node.connected_node = own_node;
+                        Console.WriteLine($"node [{target_node.id}] >> [{own_node.id}]");
+
                     }
 
                     //VID
