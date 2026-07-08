@@ -51,6 +51,7 @@ namespace Microcontrollers.ControllerSystem
             video_buffer = screen.getChanged();
             VideoNode.value = video_buffer;
             OutComp.Transfer();
+            InComp.Transfer();
             VideoNode.Transfer();
             Controller_GraphicsSetup(VideoNode.screen_size_return == null ? screensize : (Size)VideoNode.screen_size_return);
         }

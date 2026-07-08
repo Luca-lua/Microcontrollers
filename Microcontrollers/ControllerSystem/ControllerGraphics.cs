@@ -25,6 +25,8 @@ namespace Microcontrollers.ControllerSystem
             width = Controller_Graphics_buffer.Width;
             height = Controller_Graphics_buffer.Height;
             color = new SKPaint();
+            color.IsAntialias = false;
+            color.TextSize = 9;
             color.Color = new SKColor(255, 255, 255);
             _black = new SKPaint();
             _black.Color = new SKColor(0, 0, 0);
@@ -32,6 +34,10 @@ namespace Microcontrollers.ControllerSystem
         public void setColor(byte r, byte g, byte b, byte a = 255)
         {
             color.Color = new SKColor(r, g, b, a);
+        }
+        public void drawText(int x, int y, string text)
+        {
+            active_buffer.DrawText(text.ToUpper(),new SKPoint(x,y),color);
         }
         public void drawClear()
         {

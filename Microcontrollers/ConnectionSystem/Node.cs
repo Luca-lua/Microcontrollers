@@ -32,9 +32,16 @@ namespace Microcontrollers.ConnectionSystem
         }
         public void Transfer()
         {
-            if (connected_node != null)
+            if (connected_node != null && this.IsOutput)
             {
                 connected_node.value = value;
+            }
+            else
+            {
+                if (connected_node != null)
+                {
+                    value = connected_node.value;
+                }
             }
         }
     }
@@ -53,9 +60,16 @@ namespace Microcontrollers.ConnectionSystem
         }
         public void Transfer()
         {
-            if (connected_node != null)
+            if (connected_node != null && this.IsOutput)
             {
                 connected_node.value = value;
+            }
+            else
+            {
+                if (connected_node != null)
+                {
+                    value = connected_node.value;
+                }
             }
         }
     }
@@ -74,9 +88,16 @@ namespace Microcontrollers.ConnectionSystem
         }
         public void Transfer()
         {
-            if (connected_node != null)
+            if (connected_node != null && this.IsOutput)
             {
                 connected_node.value = value;
+            }
+            else
+            {
+                if (connected_node != null)
+                {
+                    value = connected_node.value;
+                }
             }
         }
     }
@@ -95,9 +116,16 @@ namespace Microcontrollers.ConnectionSystem
         }
         public void Transfer()
         {
-            if (connected_node != null)
+            if (connected_node != null && this.IsOutput)
             {
                 connected_node.value = value;
+            }
+            else
+            {
+                if (connected_node != null)
+                {
+                    value = connected_node.value;
+                }
             }
         }
     }

@@ -88,7 +88,7 @@ namespace Microcontrollers.ControllerSystem
                     }
                 }
                 stopwatch.Stop();
-                await Task.Delay(Math.Clamp(17 - (int)stopwatch.ElapsedTicks, 0, 100));
+                await Task.Delay(Math.Clamp(17 - (int)stopwatch.ElapsedTicks, 0, 17));
             }
 
             diagramHandler.writeJson(this);
