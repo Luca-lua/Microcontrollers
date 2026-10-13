@@ -26,7 +26,7 @@ namespace Microcontrollers.ControllerSystem
             height = Controller_Graphics_buffer.Height;
             color = new SKPaint();
             color.IsAntialias = false;
-            color.TextSize = 9;
+            color.TextSize = 5;
             color.Color = new SKColor(255, 255, 255);
             _black = new SKPaint();
             _black.Color = new SKColor(0, 0, 0);
@@ -37,7 +37,41 @@ namespace Microcontrollers.ControllerSystem
         }
         public void drawText(int x, int y, string text)
         {
-            active_buffer.DrawText(text.ToUpper(),new SKPoint(x,y),color);
+            active_buffer.DrawText(text.ToUpper(),new SKPoint(x,y+5),color);
+        }
+
+        public void drawTextBox(int x, int y, int height, int width, string text, short h_align = -1, short v_align = -1)
+        {
+            int length = width / 4;
+            
+            if(length <= 0)
+            {
+                length = 2;
+            }
+
+            int counter = 1;
+
+            int diff_LR = (width - length)*(h_align+1)/3;
+
+            int diff_UD = (height - text.Count() / length * 5)*(v_align+1)/3;
+
+            while (text.Length != 0)
+            {
+                string part = "";
+                if (text.Count() < length - 1)
+                {
+                    part = text;
+                    text = "";
+                }
+                else
+                {
+                    part = text.Substring(0, length - 1);
+                    text = text.Remove(0, length - 1);
+                }
+                
+                active_buffer.DrawText(part.ToUpper(), new SKPoint(x+diff_LR, y+diff_UD + 5*counter), color);
+                counter++;
+            }
         }
         public void drawClear()
         {

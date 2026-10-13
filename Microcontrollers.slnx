@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="Controllers_Console_tester/Controllers_Console_tester.csproj" />
+  <Project Path="MicrocontrollerLuaCode/MicrocontrollerLuaCode.csproj" Id="1e5e8485-be9b-43a1-b0b5-db632e8ecf8a" />
   <Project Path="Microcontrollers/Microcontrollers.csproj" />
   <Project Path="ScematicEditor/ScematicEditor/ScematicEditor.csproj" />
 </Solution>

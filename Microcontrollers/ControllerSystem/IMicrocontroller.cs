@@ -6,6 +6,6 @@ namespace Microcontrollers.ControllerSystem
 {
     public interface IMicrocontroller
     {
-        public void Execute(Controller_Input Input, Controller_Output Output, ControllerGraphics Screen);
+        public Task Execute(Controller_Input Input, Controller_Output Output, ControllerGraphics Screen);
     }
 }

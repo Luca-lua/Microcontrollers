@@ -13,7 +13,7 @@ namespace Controllers_Console_tester
             // Create new simulation window to display monitors etc on ex(500x500px)
             SimulationSpace simulation = new SimulationSpace(500,500);
             // Create new Monitor with Resolution 64x64px, taking up 250x250 px of the simulation window
-            simulation.addMonitor("Display",new System.Drawing.Size(64,64),new System.Drawing.Size(250,250));
+            simulation.addMonitor("Display",new System.Drawing.Size(32,32),new System.Drawing.Size(250,250));
 
             // Initialize controller with name "Controller1"
             simulation.AddMicrocontroller("Controller1", new Controller1());
