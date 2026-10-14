@@ -17,6 +17,10 @@ namespace Microcontrollers.ControllerSystem
         internal CompNode OutComp;
         internal VideoNode VideoNode;
 
+        private Controller_Input input = null;
+        private Controller_Output output = null;
+        private ControllerGraphics screen = null;
+
         internal Size screensize = new Size(5, 5);
 
         internal SKBitmap video_buffer;
@@ -42,9 +46,23 @@ namespace Microcontrollers.ControllerSystem
 
         internal void Execute()
         {
-            Controller_Input input = new Controller_Input(this.InComp.value.OnOffValues, this.InComp.value.NumberValues);
-            Controller_Output output = new Controller_Output(this.OutComp.value.OnOffValues, this.OutComp.value.NumberValues);
-            ControllerGraphics screen = new ControllerGraphics(video_buffer);
+            if (input == null)
+                input = new Controller_Input(this.InComp.value.OnOffValues, this.InComp.value.NumberValues);
+            else
+            {
+                input.NumberInputs = this.InComp.value.NumberValues;
+                input.BoolInputs = this.InComp.value.OnOffValues;
+            }
+
+            if (output == null)
+                output = new Controller_Output(this.OutComp.value.OnOffValues, this.OutComp.value.NumberValues);
+            else
+            {
+                output.BoolOutputs = this.OutComp.value.OnOffValues;
+                output.NumberOutputs = this.OutComp.value.NumberValues;
+            }
+
+            screen = new ControllerGraphics(video_buffer);
 
             controller.Execute(input,output,screen);
 
