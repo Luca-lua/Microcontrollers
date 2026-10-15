@@ -21,9 +21,9 @@ namespace Controllers_Console_tester
             simulation.AddMicrocontroller("Controller1", new Controller1());
 
             // Add some logic gates -> these both offer composite connections to simulate OnOff/Numeric inputs
-            simulation.addLogicGate(1, new NumberInputWindow(name: "1-6 Numeric"));
+            //simulation.addLogicGate(1, new NumberInputWindow(name: "1-6 Numeric"));
             //simulation.addLogicGate(2, new OnOffValueWindow(name: "1-6 OnOff"));
-            //simulation.addLogicGate(3, new AxisInputWindow(name: "Joystick"));
+            simulation.addLogicGate(1, new SeatPanelWindow());//new AxisInputWindow(name: "Joystick"));
             
             // Run the simulation
             await simulation.RunControllers(new CancellationToken());
