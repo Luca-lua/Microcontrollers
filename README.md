@@ -1,4 +1,7 @@
 # Microcontrollers
+
+# This README is outdated -> currently migrating to Wiki
+
 > [!CAUTION] Microcontrollers is still in prerelease. Please report bugs when found!
 
 ## What is Microcontroller style programming
