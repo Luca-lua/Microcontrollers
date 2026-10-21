@@ -133,6 +133,7 @@ namespace ScematicEditor
 
             position = new Vector2((int)((position.X + MainForm.offset_x) / MainForm.zoom), (int)((position.Y + MainForm.offset_y) / MainForm.zoom));
 
+
             foreach(ScematicNode gateNode in container.GateNodes)
             {
                 if(gateNode.owner == node.owner)
@@ -152,8 +153,8 @@ namespace ScematicEditor
             int width = zoom(Math.Min(300, height));
             activecanvas.DrawRect(position.X, position.Y, width, height, paintbucket.BlackTextOutline);
             activecanvas.DrawRect(position.X + zoom(5), position.Y + zoom(5), width - zoom(10), height - zoom(10), paintbucket.WhiteInternal);
-            activecanvas.DrawText(node.owner, position.X + zoom(10), position.Y + zoom(30), paintbucket.BlackTextOutline);
-            activecanvas.DrawText("Type: Node", position.X + zoom(10), position.Y + zoom(60), paintbucket.BlackTextOutline);
+            activecanvas.DrawText($"ID: {node.owner}", position.X + zoom(10), position.Y + zoom(30), paintbucket.BlackTextOutline);
+            activecanvas.DrawText("Type: Logicgate", position.X + zoom(10), position.Y + zoom(60), paintbucket.BlackTextOutline);
             partPositions[node.owner.ToString()+"_"] = new PartPosition(position, new Vector2(width,height),node.owner.ToString()+"_");
             nodes_in.Sort((x, y) => x.id.CompareTo(y.id));
             nodes_out.Sort((x, y) => x.id.CompareTo(y.id));

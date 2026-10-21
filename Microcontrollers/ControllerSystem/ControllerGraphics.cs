@@ -1,12 +1,5 @@
-﻿using Microcontrollers;
-using Microcontrollers.GFX;
-using OpenTK.Graphics.OpenGL;
+﻿using Microcontrollers.GUIDrawing;
 using SkiaSharp;
-using SkiaSharp.Views.Desktop;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using static OpenTK.Graphics.OpenGL.GL;
 
 namespace Microcontrollers.ControllerSystem
 {
@@ -18,6 +11,7 @@ namespace Microcontrollers.ControllerSystem
         private readonly SKPaint _black;
         internal int width;
         internal int height;
+        internal Pixeltext pixel_text = new Pixeltext();
         internal ControllerGraphics(SKBitmap Controller_Graphics_buffer) 
         {
             active_bitmap = Controller_Graphics_buffer;
@@ -26,7 +20,7 @@ namespace Microcontrollers.ControllerSystem
             height = Controller_Graphics_buffer.Height;
             color = new SKPaint();
             color.IsAntialias = false;
-            color.TextSize = 9;
+            color.TextSize = 5;
             color.Color = new SKColor(255, 255, 255);
             _black = new SKPaint();
             _black.Color = new SKColor(0, 0, 0);
@@ -37,7 +31,48 @@ namespace Microcontrollers.ControllerSystem
         }
         public void drawText(int x, int y, string text)
         {
-            active_buffer.DrawText(text.ToUpper(),new SKPoint(x,y),color);
+            pixel_text.DrawText(active_buffer, color, x, y, text);
+        }
+
+        public void drawTextBox(int x, int y, int height, int width, string text, short h_align = -1, short v_align = -1)
+        {
+            float length = width / 5.0f;
+            
+            if(length <= 0)
+            {
+                length = 2;
+            }
+
+            int counter = 1;
+
+            float text_len = text.Count();
+
+            if(text_len > length)
+            {
+                text_len = length;
+            }
+
+            int diff_LR = (int)Math.Round((width - text_len*5) *(h_align+1)/2);
+
+            int diff_UD = (height - (text.Count() / (int)length + 1) * 7)*(v_align+1)/2-7;
+
+            while (text.Length != 0)
+            {
+                string part = "";
+                if (text.Count() < length - 1)
+                {
+                    part = text;
+                    text = "";
+                }
+                else
+                {
+                    part = text.Substring(0, (int)length - 1);
+                    text = text.Remove(0, (int)length - 1);
+                }
+
+                drawText(x+diff_LR, y+diff_UD + counter*7, part.ToUpper());
+                counter++;
+            }
         }
         public void drawClear()
         {

@@ -1,4 +1,6 @@
-﻿using Microcontrollers;
+﻿using InputComponents;
+using InputComponents.Inputs;
+using Microcontrollers;
 using Microcontrollers.ControllerSystem;
 using Microcontrollers.Parts;
 using Microcontrollers.Parts.CompConvert;
@@ -12,17 +14,18 @@ namespace Controllers_Console_tester
         {
             // Create new simulation window to display monitors etc on ex(500x500px)
             SimulationSpace simulation = new SimulationSpace(500,500);
-            // Create new Monitor with Resolution 64x64px, taking up 250x250 px of the simulation window
-            simulation.addMonitor("Display",new System.Drawing.Size(64,64),new System.Drawing.Size(250,250));
+            // Create new Monitor with Resolution 64x64px, taking up 400x400 px of the simulation window
+            simulation.addMonitor("Display",new System.Drawing.Size(64,64),new System.Drawing.Size(400,400));
 
             // Initialize controller with name "Controller1"
             simulation.AddMicrocontroller("Controller1", new Controller1());
 
-            // Add some logic gates -> OnOff where key D1 turns it to "true" and Do to "false"
-            // And a OnOff to Comp converter with start channel 1 and 1 total channel
-            simulation.addLogicGate(1, new OnOff_From_Console(ConsoleKey.D1,ConsoleKey.D0));
-            simulation.addLogicGate(2, new OnOff_To_Composite(1, 1));
-            
+            // Add some logic gates -> these both offer composite connections to simulate OnOff/Numeric inputs
+            simulation.addLogicGate(1, new SeatPanelWindow());
+            simulation.addLogicGate(2, new OnOffValueWindow());
+            simulation.addLogicGate(3, new OnOff_To_Composite(10,6));
+            simulation.addLogicGate(4, new Composite_To_OnOff(1, 6));
+
             // Run the simulation
             await simulation.RunControllers(new CancellationToken());
         }

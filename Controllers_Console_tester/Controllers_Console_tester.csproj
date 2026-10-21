@@ -12,6 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\InputComponents\InputComponents.csproj" />
+    <ProjectReference Include="..\MicrocontrollerLuaCode\MicrocontrollerLuaCode.csproj" />
     <ProjectReference Include="..\Microcontrollers\Microcontrollers.csproj" />
   </ItemGroup>
 

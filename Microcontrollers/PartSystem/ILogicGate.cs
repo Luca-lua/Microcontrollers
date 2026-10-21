@@ -6,6 +6,9 @@ using System.Text;
 
 namespace Microcontrollers.PartSystem
 {
+    /// <summary>
+    /// Interface for Construct and Execute Methods, you also need this to add it via Simulationspace.
+    /// </summary>
     public interface ILogicGate
     {
         /// <summary>
