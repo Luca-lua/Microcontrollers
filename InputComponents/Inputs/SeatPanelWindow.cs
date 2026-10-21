@@ -24,6 +24,9 @@ namespace InputComponents.Inputs
         /// </summary>
         public int RightStickSensivity = 10;
     }
+    /// <summary>
+    /// Represents logic parts of stormworks helm / seat
+    /// </summary>
     public class SeatPanelWindow : ILogicGate
     {
         public List<NumberGateNode> NumberNodes { get; } = new List<NumberGateNode>();
@@ -33,7 +36,15 @@ namespace InputComponents.Inputs
 
         private SeatPanel form;
         private SeatPanelWindowConfig config;
-
+        /// <summary>
+        /// Create new Stormworks helm / seat input instance
+        /// <para></para>
+        /// Axis (+/-) : 1 D/A | 2 W/S | 3 r_arr/l_arr | 4 u_arr/d_arr | 9 view_right/view_left | 10 view_up/view_down
+        /// <para></para>
+        /// OnOff: 0-9 Number keys | 31 trigger / space | 32 seat occupied
+        /// </summary>
+        /// <param name="name">name of the window, usefull if multiple are used</param>
+        /// <param name="config">configuration. if not given, defaults will be used</param>
         public SeatPanelWindow(string name = "Composite Seat Panel", SeatPanelWindowConfig config = null)
         {
             if (config != null)

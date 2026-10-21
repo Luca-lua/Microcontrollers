@@ -23,7 +23,13 @@ namespace InputComponents.Inputs
 
         private OnOffInput form;
         private OnOffValueWindowConfig config;
-
+        /// <summary>
+        /// Create a new Inputwindow with 6 Boolean inputs.
+        /// </summary>
+        /// <param name="name">How the window will be titled, usefull when multiple exist.</param>
+        /// <param name="config">configuration. if null, defaults will be used.</param>
+        /// <param name="labels">label the boolean inputs [0] is label 1, [5] is label 6</param>
+        /// <param name="defaults">state the boolean inputs will start in, [0] is boolean 1, [5] is boolean 6 </param>
         public OnOffValueWindow(string name = "Input panel", OnOffValueWindowConfig? config = null , string[]? labels = null, bool[]? defaults = null)
         {
             if (config == null)

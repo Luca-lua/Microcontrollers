@@ -23,7 +23,13 @@ namespace InputComponents.Inputs
 
         private NumberInputs form;
         private NumberValueWindowConfig config;
-
+        /// <summary>
+        /// Create a new Inputwindow with 6 Numeric inputs.
+        /// </summary>
+        /// <param name="name">How the window will be titled, usefull when multiple exist.</param>
+        /// <param name="config">configuration. if null, defaults will be used.</param>
+        /// <param name="labels">label the boolean inputs [0] is label 1, [5] is label 6</param>
+        /// <param name="defaults">state the number inputs will start in, [0] is number 1, [5] is number 6 </param>
         public NumberInputWindow(string name = "Input panel", NumberValueWindowConfig? config = null , string[]? labels = null, int[]? defaults = null)
         {
             if (config == null)
