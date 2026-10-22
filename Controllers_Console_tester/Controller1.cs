@@ -8,6 +8,9 @@ namespace Controllers_Console_tester
 {
     internal class Controller1 : IMicrocontroller
     {
+        internal int x = 0;
+        internal int y = 1;
+        List<DateTime> events = new List<DateTime>();
         LuaExecute luacontext = null;
         public async Task Execute(Controller_Input Input, Controller_Output Output, ControllerGraphics Screen)
         {

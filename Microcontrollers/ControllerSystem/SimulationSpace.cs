@@ -85,10 +85,13 @@ namespace Microcontrollers.ControllerSystem
             gates.ForEach(a => a.Link(nodecollection));
             diagramHandler.writeJson(this);
 
+            stopwatch.Reset();
+            stopwatch.Start();
+
+            uint tick = 1;
+
             while (!cts.IsCancellationRequested)
             {
-                stopwatch.Reset();
-                stopwatch.Start();
                 foreach (var controller in controllers)
                 {
                     controller.Execute();
@@ -115,8 +118,21 @@ namespace Microcontrollers.ControllerSystem
                         monitor.touchInfo.Transfer();
                     }
                 }
-                stopwatch.Stop();
-                await Task.Delay(Math.Clamp(17 - (int)stopwatch.ElapsedTicks, 0, 17));
+
+                ulong targetMS = tick * 17;
+
+                while ((double)stopwatch.ElapsedMilliseconds < targetMS)
+                {
+                    await Task.Delay(1);
+                }
+
+                tick++;
+                if(tick == 100)
+                {
+                    stopwatch.Reset();
+                    tick = 0;
+                    stopwatch.Start();
+                }
             }
 
             diagramHandler.writeJson(this);

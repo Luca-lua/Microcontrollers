@@ -18,7 +18,7 @@ namespace MicrocontrollerLuaCode.Libraries
                 bool arg1 = context.GetArgument<bool>(1);
 
                 output.SetBool(arg0, arg1);
-                return new(1);
+                return new(0);
             });
 
             output_table["setNumber"] = new LuaFunction((context, ct) =>
@@ -27,7 +27,7 @@ namespace MicrocontrollerLuaCode.Libraries
                 double arg1 = context.GetArgument<double>(1);
 
                 output.SetNumber(arg0, arg1);
-                return new(1);
+                return new(0);
             });
 
             return output_table;

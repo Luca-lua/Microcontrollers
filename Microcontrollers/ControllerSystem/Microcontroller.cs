@@ -15,7 +15,8 @@ namespace Microcontrollers.ControllerSystem
 
         internal CompNode InComp;
         internal CompNode OutComp;
-        internal VideoNode VideoNode;
+        internal VideoNode VideoNodeOut;
+        internal VideoNode VideoNodeIn;
 
         private Controller_Input input = null;
         private Controller_Output output = null;
@@ -24,13 +25,15 @@ namespace Microcontrollers.ControllerSystem
         internal Size screensize = new Size(5, 5);
 
         internal SKBitmap video_buffer;
+        internal SKBitmap recieved_buffer;
 
         internal Microcontroller(Size internal_screen_buffer,IMicrocontroller controller, string diagram_name, Nodes nodecollection)
         {
             this.controller = controller;
             InComp = nodecollection.addCompositeNode(new CompNode(false));
             OutComp = nodecollection.addCompositeNode(new CompNode(true));
-            VideoNode = nodecollection.addVideoNode(new VideoNode(true));
+            VideoNodeIn = nodecollection.addVideoNode(new VideoNode(false));
+            VideoNodeOut = nodecollection.addVideoNode(new VideoNode(true));
             Controller_GraphicsSetup(new Size(internal_screen_buffer.Width, internal_screen_buffer.Height));
             name = diagram_name;
             
@@ -41,11 +44,17 @@ namespace Microcontrollers.ControllerSystem
             if (size != screensize)
             {
                 video_buffer = new SKBitmap(size.Width, size.Height);
+                recieved_buffer = new SKBitmap(size.Width, size.Height);
             }
         }
 
-        internal void Execute()
+        internal async Task Execute()
         {
+            if (VideoNodeIn.value.ByteCount != 0)
+            {
+                recieved_buffer = VideoNodeIn.value;
+            }
+
             if (input == null)
                 input = new Controller_Input(this.InComp.value.OnOffValues, this.InComp.value.NumberValues);
             else
@@ -62,16 +71,22 @@ namespace Microcontrollers.ControllerSystem
                 output.NumberOutputs = this.OutComp.value.NumberValues;
             }
 
-            screen = new ControllerGraphics(video_buffer);
+            if (screen == null)
+                screen = new ControllerGraphics(video_buffer);
+            else
+                screen.ChangeCanvas(video_buffer);
 
-            controller.Execute(input,output,screen);
+            screen.FillBitmap(recieved_buffer);
 
-            video_buffer = screen.getChanged();
-            VideoNode.value = video_buffer;
+            await controller.Execute(input,output,screen);
+
+            video_buffer = await screen.getChanged();
+            VideoNodeOut.value = video_buffer;
             OutComp.Transfer();
             InComp.Transfer();
-            VideoNode.Transfer();
-            Controller_GraphicsSetup(VideoNode.screen_size_return == null ? screensize : (Size)VideoNode.screen_size_return);
+            VideoNodeOut.Transfer();
+            Controller_GraphicsSetup(VideoNodeOut.screen_size_return == null ? screensize : (Size)VideoNodeOut.screen_size_return);
+            VideoNodeIn.screen_size_return = VideoNodeOut.screen_size_return;
         }
     }
 }

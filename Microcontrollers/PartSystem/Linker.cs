@@ -12,6 +12,7 @@ namespace Microcontrollers.PartSystem
         public Linker() { }
         public int id;
         public ILogicGate gate { get; set; }
+        public Size? video_size = null;
         public List<Tuple<int, int>> links { get; set; } = new List<Tuple<int, int>>();
         internal Linker(int id,ILogicGate gate,Nodes logicnodes) 
         {
@@ -91,6 +92,7 @@ namespace Microcontrollers.PartSystem
                 {
                     var real_node = logicnodes.VideoNodes.FindLast(c => c.id == links.Find(l => l.Item1 == vidNode._id).Item2);
                     vidNode.value = real_node.value;
+                    real_node.screen_size_return = video_size;
                 }
             }
         }
@@ -148,6 +150,7 @@ namespace Microcontrollers.PartSystem
                     real_node.value = vidNode.value;
                     if (real_node.connected_node != null)
                     {
+                        video_size = real_node.screen_size_return;
                         real_node.connected_node.value = real_node.value;
                         real_node.screen_size_return = logicnodes.VideoNodes.Find(g => g.id == real_node.connected_node.id).screen_size_return;
                     }

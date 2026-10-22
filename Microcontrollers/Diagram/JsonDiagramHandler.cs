@@ -109,13 +109,27 @@ namespace Microcontrollers.Diagram
             {
                 foreach(ScematicMicrocontroller scematicMicrocontroller in scematiccontainer.microcontrollerList)
                 {
-                    if(scematicMicrocontroller.VideoNode.id == node.id)
+                    if(scematicMicrocontroller.VideoNodeOut.id == node.id)
                     {
-                        ScematicNode scematicNode = scematicMicrocontroller.VideoNode;
+                        ScematicNode scematicNode = scematicMicrocontroller.VideoNodeOut;
                         node.IsOutput = scematicNode.isOutput;
                         foreach(VideoNode target in sim.nodecollection.VideoNodes)
                         {
                             if(target.id == scematicNode.target_id)
+                            {
+                                node.connected_node = target;
+                                target.connected_node = node;
+                                Console.WriteLine($"node [{target.id}] >> [{node.id}]");
+                            }
+                        }
+                    }
+                    if (scematicMicrocontroller.VideoNodeIn.id == node.id)
+                    {
+                        ScematicNode scematicNode = scematicMicrocontroller.VideoNodeIn;
+                        node.IsOutput = scematicNode.isOutput;
+                        foreach (VideoNode target in sim.nodecollection.VideoNodes)
+                        {
+                            if (target.id == scematicNode.target_id)
                             {
                                 node.connected_node = target;
                                 target.connected_node = node;

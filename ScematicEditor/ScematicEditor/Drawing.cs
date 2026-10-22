@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ScematicEditor
 {
@@ -16,6 +17,7 @@ namespace ScematicEditor
         internal static Dictionary<string,PartPosition> partPositions = new Dictionary<string, PartPosition>();
         internal static SKCanvas activecanvas;
         private static List<string> covered_owners = new List<string>();
+        private static SKFont font;
 
         private static int zoom(int var)
         {
@@ -23,6 +25,8 @@ namespace ScematicEditor
         }
         internal static void DrawDiagram(Form form,SKCanvas canvas, Scematiccontainer scematiccontainer)
         {
+            font = new SKFont();
+            font.Size = zoom(30);
             nodes.Clear();
             covered_owners.Clear();
             activecanvas = canvas;
@@ -56,8 +60,8 @@ namespace ScematicEditor
 
             activecanvas.DrawRect(position.X, position.Y, width, height,Drawing.paintbucket.BlackTextOutline);
             activecanvas.DrawRect(position.X+ (int)(5 / MainForm.zoom), position.Y+ (int)(5 / MainForm.zoom), width- (int)(10 / MainForm.zoom), height - (int)(10/MainForm.zoom), Drawing.paintbucket.WhiteInternal);
-            activecanvas.DrawText(scematicMonitor.name, position.X + (int)(30 / MainForm.zoom), position.Y + (int)(30 / MainForm.zoom), paintbucket.BlackTextOutline);
-            activecanvas.DrawText("Type: Monitor", position.X + (int)(10 / MainForm.zoom), position.Y + (int)(60 / MainForm.zoom), paintbucket.BlackTextOutline);
+            activecanvas.DrawText(scematicMonitor.name, position.X + (int)(30 / MainForm.zoom), position.Y + (int)(30 / MainForm.zoom),SKTextAlign.Left,font, paintbucket.BlackTextOutline);
+            activecanvas.DrawText("Type: Monitor", position.X + (int)(10 / MainForm.zoom), position.Y + (int)(60 / MainForm.zoom), SKTextAlign.Left, font, paintbucket.BlackTextOutline);
 
             partPositions[scematicMonitor.name] = new PartPosition(position, new Vector2(width, height), scematicMonitor.name);
 
@@ -112,13 +116,14 @@ namespace ScematicEditor
             scematicMicrocontroller.CompInNode.nodeType = NodeType.Composite;
             activecanvas.DrawRect(position.X, position.Y, width, height, paintbucket.BlackTextOutline);
             activecanvas.DrawRect(position.X + zoom(5), position.Y + zoom(5), width - zoom(10), height - zoom(10), paintbucket.WhiteInternal);
-            activecanvas.DrawText(scematicMicrocontroller.name, position.X + zoom(10), position.Y + zoom(30), paintbucket.BlackTextOutline);
-            activecanvas.DrawText("Type: Controller", position.X + zoom(10), position.Y + zoom(60), paintbucket.BlackTextOutline);
+            activecanvas.DrawText(scematicMicrocontroller.name, position.X + zoom(10), position.Y + zoom(30), SKTextAlign.Left, font, paintbucket.BlackTextOutline);
+            activecanvas.DrawText("Type: Controller", position.X + zoom(10), position.Y + zoom(60), SKTextAlign.Left, font, paintbucket.BlackTextOutline);
 
             partPositions[scematicMicrocontroller.name] = new PartPosition(position, new Vector2(width, height), scematicMicrocontroller.name);
 
-            DrawNode(new Vector2(position.X, position.Y + height / 2),scematicMicrocontroller.CompInNode);
-            DrawNode(new Vector2(position.X+ width, position.Y + width / 3), scematicMicrocontroller.VideoNode);
+            DrawNode(new Vector2(position.X, position.Y + width / 3), scematicMicrocontroller.VideoNodeIn);
+            DrawNode(new Vector2(position.X, position.Y + height / 3*2),scematicMicrocontroller.CompInNode);
+            DrawNode(new Vector2(position.X+ width, position.Y + width / 3), scematicMicrocontroller.VideoNodeOut);
             DrawNode(new Vector2(position.X + width, position.Y + height / 3*2), scematicMicrocontroller.CompOutNode);
         }
         private static void DrawNodes(ScematicNode node,Scematiccontainer container)
@@ -153,8 +158,8 @@ namespace ScematicEditor
             int width = zoom(Math.Min(300, height));
             activecanvas.DrawRect(position.X, position.Y, width, height, paintbucket.BlackTextOutline);
             activecanvas.DrawRect(position.X + zoom(5), position.Y + zoom(5), width - zoom(10), height - zoom(10), paintbucket.WhiteInternal);
-            activecanvas.DrawText($"ID: {node.owner}", position.X + zoom(10), position.Y + zoom(30), paintbucket.BlackTextOutline);
-            activecanvas.DrawText("Type: Logicgate", position.X + zoom(10), position.Y + zoom(60), paintbucket.BlackTextOutline);
+            activecanvas.DrawText($"ID: {node.owner}", position.X + zoom(10), position.Y + zoom(30), SKTextAlign.Left, font, paintbucket.BlackTextOutline);
+            activecanvas.DrawText("Type: Logicgate", position.X + zoom(10), position.Y + zoom(60), SKTextAlign.Left, font, paintbucket.BlackTextOutline);
             partPositions[node.owner.ToString()+"_"] = new PartPosition(position, new Vector2(width,height),node.owner.ToString()+"_");
             nodes_in.Sort((x, y) => x.id.CompareTo(y.id));
             nodes_out.Sort((x, y) => x.id.CompareTo(y.id));

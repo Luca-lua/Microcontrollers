@@ -9,7 +9,8 @@ namespace ScematicEditor.Diagram
         internal static int width = 300;
         internal static int height = 200;
         public string name;
-        public ScematicNode VideoNode;
+        public ScematicNode VideoNodeIn;
+        public ScematicNode VideoNodeOut;
         public ScematicNode CompInNode;
         public ScematicNode CompOutNode;
         public ScematicMicrocontroller() { }

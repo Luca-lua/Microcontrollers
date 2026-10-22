@@ -48,7 +48,7 @@ namespace MicrocontrollerLuaCode
             {
                 File.Create(path).Close();
                 File.WriteAllText(path, LuaConfig.CreationTemplate);
-                Console.WriteLine($"[!!] Lua script file created at: [{path}] for controller [{config.controller.GetType().ToString()}]");
+                Console.WriteLine($"[!!] Lua script file created at: [{Path.GetFullPath(path)}] for controller [{config.controller.GetType().ToString()}]");
             }
 
             state = LuaState.Create();
