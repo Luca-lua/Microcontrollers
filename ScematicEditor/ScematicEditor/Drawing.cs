@@ -121,8 +121,9 @@ namespace ScematicEditor
 
             partPositions[scematicMicrocontroller.name] = new PartPosition(position, new Vector2(width, height), scematicMicrocontroller.name);
 
-            DrawNode(new Vector2(position.X, position.Y + height / 2),scematicMicrocontroller.CompInNode);
-            DrawNode(new Vector2(position.X+ width, position.Y + width / 3), scematicMicrocontroller.VideoNode);
+            DrawNode(new Vector2(position.X, position.Y + width / 3), scematicMicrocontroller.VideoNodeIn);
+            DrawNode(new Vector2(position.X, position.Y + height / 3*2),scematicMicrocontroller.CompInNode);
+            DrawNode(new Vector2(position.X+ width, position.Y + width / 3), scematicMicrocontroller.VideoNodeOut);
             DrawNode(new Vector2(position.X + width, position.Y + height / 3*2), scematicMicrocontroller.CompOutNode);
         }
         private static void DrawNodes(ScematicNode node,Scematiccontainer container)

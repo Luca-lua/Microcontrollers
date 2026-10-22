@@ -196,7 +196,7 @@ namespace MicrocontrollerLuaCode.Libraries
                 int arg0 = (int)Math.Round(context.GetArgument<double>(0));
 
                 random = new Random(arg0);
-                return new(1);
+                return new(0);
             });
 
             math_table["sin"] = new LuaFunction((context, ct) =>

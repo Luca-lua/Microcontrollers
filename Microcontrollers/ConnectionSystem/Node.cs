@@ -32,16 +32,21 @@ namespace Microcontrollers.ConnectionSystem
         }
         public void Transfer()
         {
-            if (connected_node != null && this.IsOutput)
+            if (connected_node == null)
+                return;
+
+            if (connected_node is not VideoNode)
+                throw new TypeLoadException("Nodetype missmatch on connection. Try deleting scematic.json and redoing your connections.");
+
+            if (this.IsOutput)
             {
                 connected_node.value = value;
+                screen_size_return = (connected_node as VideoNode).screen_size_return;
             }
             else
             {
-                if (connected_node != null)
-                {
-                    value = connected_node.value;
-                }
+                value = connected_node.value;
+                (connected_node as VideoNode).screen_size_return = screen_size_return;
             }
         }
     }

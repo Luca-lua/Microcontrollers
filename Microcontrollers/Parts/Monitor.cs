@@ -77,7 +77,7 @@ namespace Microcontrollers.Parts
             }
 
             // send monitor size
-            this.videoIn.screen_size_return = real_size;
+            this.videoIn.screen_size_return = output_size;
             touchInfo.value.OnOffValues[1] = false;
 
             return video;
