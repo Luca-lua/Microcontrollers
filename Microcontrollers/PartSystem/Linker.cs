@@ -110,6 +110,15 @@ namespace Microcontrollers.PartSystem
                         real_node.connected_node.value = real_node.value;
                     }
                 }
+                else
+                {
+                    var real_node = logicnodes.CompositeNodes.FindLast(c => c.id == links.Find(l => l.Item1 == cmpNode._id).Item2);
+                    cmpNode.value = real_node.value;
+                    if (real_node.connected_node != null)
+                    {
+                        real_node.value = real_node.connected_node.value;
+                    }
+                }
             }
             // Number Nodes
             foreach (NumberGateNode numNode in gate.NumberNodes)
@@ -123,21 +132,35 @@ namespace Microcontrollers.PartSystem
                         real_node.connected_node.value = real_node.value;
                     }
                 }
+                else
+                {
+                    var real_node = logicnodes.NumberNodes.FindLast(c => c.id == links.Find(l => l.Item1 == numNode._id).Item2);
+                    numNode.value = real_node.value;
+                    if (real_node.connected_node != null)
+                    {
+                        real_node.value = real_node.connected_node.value;
+                    }
+                }
             }
             // OnOff Nodes
             foreach (OnOffGateNode onoNode in gate.OnOffNodes)
             {
                 if (onoNode._isOutput)
                 {
-                    if(links.Find(l => l.Item1 == onoNode._id).Item2 == 10)
-                    {
-                        var brk2 = 3;
-                    }
                     var real_node = logicnodes.OnOffNodes.FindLast(c => c.id == links.Find(l => l.Item1 == onoNode._id).Item2);
                     real_node.value = onoNode.value;
                     if (real_node.connected_node != null)
                     {
                         real_node.connected_node.value = real_node.value;
+                    }
+                }
+                else
+                {
+                    var real_node = logicnodes.OnOffNodes.FindLast(c => c.id == links.Find(l => l.Item1 == onoNode._id).Item2);
+                    onoNode.value = real_node.value;
+                    if (real_node.connected_node != null)
+                    {
+                        real_node.value = real_node.connected_node.value;
                     }
                 }
             }
@@ -153,6 +176,19 @@ namespace Microcontrollers.PartSystem
                         video_size = real_node.screen_size_return;
                         real_node.connected_node.value = real_node.value;
                         real_node.screen_size_return = logicnodes.VideoNodes.Find(g => g.id == real_node.connected_node.id).screen_size_return;
+                    }
+                }
+                else
+                {
+                    var real_node = logicnodes.VideoNodes.FindLast(c => c.id == links.Find(l => l.Item1 == vidNode._id).Item2);
+                    real_node.value = vidNode.value;
+
+
+                    if (real_node.connected_node != null)
+                    {
+                        real_node.screen_size_return = video_size;
+                        real_node.value = real_node.connected_node.value;
+                        logicnodes.VideoNodes.Find(g => g.id == real_node.connected_node.id).screen_size_return = real_node.screen_size_return;
                     }
                 }
             }
@@ -189,7 +225,8 @@ namespace Microcontrollers.PartSystem
         }
         internal void ExecuteLogic(Nodes logicnodes)
         {
-            ExecuteInputs(logicnodes);
+            ExecuteOutputs(logicnodes);
+            //ExecuteInputs(logicnodes);
             gate.Execute();
             ExecuteOutputs(logicnodes);
         }

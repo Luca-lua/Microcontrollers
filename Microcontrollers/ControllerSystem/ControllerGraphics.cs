@@ -24,7 +24,6 @@ namespace Microcontrollers.ControllerSystem
             color.Color = new SKColor(255, 255, 255);
             _black = new SKPaint();
             _black.Color = new SKColor(0, 0, 0);
-            _black.BlendMode = SKBlendMode.Src;
         }
         internal void ChangeCanvas(SKBitmap Controller_Graphics_buffer)
         {
@@ -33,7 +32,7 @@ namespace Microcontrollers.ControllerSystem
         }
         internal void FillBitmap(SKBitmap bitmap)
         {
-            active_buffer.DrawBitmap(bitmap, 0, 0, _black);
+            active_buffer.DrawBitmap(bitmap, 0, 0);
         }
         public void setColor(byte r, byte g, byte b, byte a = 255)
         {

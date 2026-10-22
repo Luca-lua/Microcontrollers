@@ -50,6 +50,9 @@ namespace Microcontrollers.ControllerSystem
 
         internal async Task Execute()
         {
+            VideoNodeIn.Transfer();
+            InComp.Transfer();
+
             if (VideoNodeIn.value.ByteCount != 0)
             {
                 recieved_buffer = VideoNodeIn.value;
@@ -83,7 +86,6 @@ namespace Microcontrollers.ControllerSystem
             video_buffer = await screen.getChanged();
             VideoNodeOut.value = video_buffer;
             OutComp.Transfer();
-            InComp.Transfer();
             VideoNodeOut.Transfer();
             Controller_GraphicsSetup(VideoNodeOut.screen_size_return == null ? screensize : (Size)VideoNodeOut.screen_size_return);
             VideoNodeIn.screen_size_return = VideoNodeOut.screen_size_return;

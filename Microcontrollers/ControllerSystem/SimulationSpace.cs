@@ -96,13 +96,17 @@ namespace Microcontrollers.ControllerSystem
                 {
                     controller.Execute();
                 }
+
                 foreach (var gate in gates)
                 {
                     gate.ExecuteLogic(nodecollection);
                 }
+
                 foreach (var monitor in monitors)
                 {
+                    monitor.videoIn.Transfer();
                     drawingHandler.DrawMonitor(monitor,out Vector2? click);
+                    
                     if (click != null)
                     {
                         monitor.touchInfo.value.OnOffValues[1] = true;
@@ -121,13 +125,13 @@ namespace Microcontrollers.ControllerSystem
 
                 ulong targetMS = tick * 17;
 
-                while ((double)stopwatch.ElapsedMilliseconds < targetMS)
+                while ((ulong)stopwatch.ElapsedMilliseconds < targetMS)
                 {
-                    await Task.Delay(1);
+                    Task.Delay(1).Wait();
                 }
 
                 tick++;
-                if(tick == 100)
+                if(tick == uint.MaxValue)
                 {
                     stopwatch.Reset();
                     tick = 0;

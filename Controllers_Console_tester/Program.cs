@@ -15,15 +15,17 @@ namespace Controllers_Console_tester
             // Create new simulation window to display monitors etc on ex(500x500px)
             SimulationSpace simulation = new SimulationSpace(500,500);
             // Create new Monitor with Resolution 64x64px, taking up 400x400 px of the simulation window
-            simulation.addMonitor("Display",new System.Drawing.Size(64,64),new System.Drawing.Size(400,400));
+            simulation.addMonitor("Display1",new System.Drawing.Size(64,64),new System.Drawing.Size(200,200));
+            simulation.addMonitor("Display2", new System.Drawing.Size(64, 64), new System.Drawing.Size(200, 200), new System.Drawing.Size(210,5));
+
 
             // Initialize controller with name "Controller1"
             simulation.AddMicrocontroller("Controller1", new Controller1());
             simulation.AddMicrocontroller("Controller2", new Controller2());
 
             // Add some logic gates -> these both offer composite connections to simulate OnOff/Numeric inputs
-            /*simulation.addLogicGate(1, new SeatPanelWindow());
-            simulation.addLogicGate(2, new OnOffValueWindow());
+            simulation.addLogicGate(1, new SeatPanelWindow());
+            /*simulation.addLogicGate(2, new OnOffValueWindow());
             simulation.addLogicGate(3, new OnOff_To_Composite(10,6));
             simulation.addLogicGate(4, new Composite_To_OnOff(1, 6));*/
 
