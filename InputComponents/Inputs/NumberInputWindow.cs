@@ -2,15 +2,6 @@
 
 namespace InputComponents.Inputs
 {
-    public class NumberValueWindowConfig
-    {
-        public int Input1OutChannel { get; set; } = 1;
-        public int Input2OutChannel { get; set; } = 2;
-        public int Input3OutChannel { get; set; } = 3;
-        public int Input4OutChannel { get; set; } = 4;
-        public int Input5OutChannel { get; set; } = 5;
-        public int Input6OutChannel { get; set; } = 6;
-    }
     /// <summary>
     /// "LogicGate" -> Creates a Window with 6 Number inputs.
     /// </summary>
@@ -25,12 +16,13 @@ namespace InputComponents.Inputs
         private NumberValueWindowConfig config;
         /// <summary>
         /// Create a new Inputwindow with 6 Numeric inputs.
+        /// <para></para>
+        /// Outputs are 6 NumberNodes
         /// </summary>
         /// <param name="name">How the window will be titled, usefull when multiple exist.</param>
-        /// <param name="config">configuration. if null, defaults will be used.</param>
         /// <param name="labels">label the boolean inputs [0] is label 1, [5] is label 6</param>
         /// <param name="defaults">state the number inputs will start in, [0] is number 1, [5] is number 6 </param>
-        public NumberInputWindow(string name = "Input panel", NumberValueWindowConfig? config = null , string[]? labels = null, int[]? defaults = null)
+        public NumberInputWindow(string name = "Input panel" , string[]? labels = null, int[]? defaults = null)
         {
             if (config == null)
                 config = new NumberValueWindowConfig();
@@ -68,19 +60,24 @@ namespace InputComponents.Inputs
 
         public void Construct()
         {
-            CompNodes.Add(new CompositeGateNode(1,true));
+            NumberNodes.Add(new NumberGateNode(1,true));
+            NumberNodes.Add(new NumberGateNode(2, true));
+            NumberNodes.Add(new NumberGateNode(3, true));
+            NumberNodes.Add(new NumberGateNode(4, true));
+            NumberNodes.Add(new NumberGateNode(5, true));
+            NumberNodes.Add(new NumberGateNode(6, true));
         }
 
         public void Execute()
         {
-            
-            var compnode = CompNodes.Find(c => c._id == 1).value;
-            compnode.NumberValues[config.Input1OutChannel] = form.GetInputValue(1);
-            compnode.NumberValues[config.Input2OutChannel] = form.GetInputValue(2);
-            compnode.NumberValues[config.Input3OutChannel] = form.GetInputValue(3);
-            compnode.NumberValues[config.Input4OutChannel] = form.GetInputValue(4);
-            compnode.NumberValues[config.Input5OutChannel] = form.GetInputValue(5);
-            compnode.NumberValues[config.Input6OutChannel] = form.GetInputValue(6);
+
+
+            NumberNodes.Find(c => c._id == 1).value = form.GetInputValue(1);
+            NumberNodes.Find(c => c._id == 2).value = form.GetInputValue(2);
+            NumberNodes.Find(c => c._id == 3).value = form.GetInputValue(3);
+            NumberNodes.Find(c => c._id == 4).value = form.GetInputValue(4);
+            NumberNodes.Find(c => c._id == 5).value = form.GetInputValue(5);
+            NumberNodes.Find(c => c._id == 6).value = form.GetInputValue(6);
         }
     }
 }

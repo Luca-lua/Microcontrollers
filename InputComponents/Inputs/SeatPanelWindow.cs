@@ -87,8 +87,8 @@ namespace InputComponents.Inputs
 
             compnode.NumberValues[1] = form.GetAxisValue(SeatPanel.SeatAxis.AD);
             compnode.NumberValues[2] = form.GetAxisValue(SeatPanel.SeatAxis.WS);
-            compnode.NumberValues[3] = form.GetAxisValue(SeatPanel.SeatAxis.UD);
-            compnode.NumberValues[4] = form.GetAxisValue(SeatPanel.SeatAxis.LR);
+            compnode.NumberValues[3] = form.GetAxisValue(SeatPanel.SeatAxis.LR);
+            compnode.NumberValues[4] = form.GetAxisValue(SeatPanel.SeatAxis.UD);
             compnode.NumberValues[9] = form.GetAxisValue(SeatPanel.SeatAxis.VX);
             compnode.NumberValues[10] = form.GetAxisValue(SeatPanel.SeatAxis.VY);
         }

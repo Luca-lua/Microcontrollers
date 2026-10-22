@@ -25,9 +25,9 @@ namespace Controllers_Console_tester
 
             // Add some logic gates -> these both offer composite connections to simulate OnOff/Numeric inputs
             simulation.addLogicGate(1, new SeatPanelWindow());
-            /*simulation.addLogicGate(2, new OnOffValueWindow());
-            simulation.addLogicGate(3, new OnOff_To_Composite(10,6));
-            simulation.addLogicGate(4, new Composite_To_OnOff(1, 6));*/
+            /*simulation.addLogicGate(2, new OnOffValueWindow());*/
+            simulation.addLogicGate(3, new Number_To_Composite(10,6));
+            simulation.addLogicGate(4, new Composite_To_Number(1, 6));
 
             // Run the simulation
             await simulation.RunControllers(new CancellationToken());

@@ -2,15 +2,6 @@
 
 namespace InputComponents.Inputs
 {
-    public class OnOffValueWindowConfig
-    {
-        public int Input1OutChannel { get; set; } = 1;
-        public int Input2OutChannel { get; set; } = 2;
-        public int Input3OutChannel { get; set; } = 3;
-        public int Input4OutChannel { get; set; } = 4;
-        public int Input5OutChannel { get; set; } = 5;
-        public int Input6OutChannel { get; set; } = 6;
-    }
     /// <summary>
     /// "LogicGate" -> Creates a Window with 6 Boolean inputs.
     /// </summary>
@@ -25,12 +16,14 @@ namespace InputComponents.Inputs
         private OnOffValueWindowConfig config;
         /// <summary>
         /// Create a new Inputwindow with 6 Boolean inputs.
+        /// <para></para>
+        /// Outputs are 6 OnOffNodes
         /// </summary>
         /// <param name="name">How the window will be titled, usefull when multiple exist.</param>
         /// <param name="config">configuration. if null, defaults will be used.</param>
         /// <param name="labels">label the boolean inputs [0] is label 1, [5] is label 6</param>
         /// <param name="defaults">state the boolean inputs will start in, [0] is boolean 1, [5] is boolean 6 </param>
-        public OnOffValueWindow(string name = "Input panel", OnOffValueWindowConfig? config = null , string[]? labels = null, bool[]? defaults = null)
+        public OnOffValueWindow(string name = "Input panel" , string[]? labels = null, bool[]? defaults = null)
         {
             if (config == null)
                 config = new OnOffValueWindowConfig();
@@ -68,19 +61,22 @@ namespace InputComponents.Inputs
 
         public void Construct()
         {
-            CompNodes.Add(new CompositeGateNode(1,true));
+            OnOffNodes.Add(new OnOffGateNode(1,true));
+            OnOffNodes.Add(new OnOffGateNode(2, true));
+            OnOffNodes.Add(new OnOffGateNode(3, true));
+            OnOffNodes.Add(new OnOffGateNode(4, true));
+            OnOffNodes.Add(new OnOffGateNode(5, true));
+            OnOffNodes.Add(new OnOffGateNode(6, true));
         }
 
         public void Execute()
         {
-            
-            var compnode = CompNodes.Find(c => c._id == 1).value;
-            compnode.OnOffValues[config.Input1OutChannel] = form.GetInputValue(1);
-            compnode.OnOffValues[config.Input2OutChannel] = form.GetInputValue(2);
-            compnode.OnOffValues[config.Input3OutChannel] = form.GetInputValue(3);
-            compnode.OnOffValues[config.Input4OutChannel] = form.GetInputValue(4);
-            compnode.OnOffValues[config.Input5OutChannel] = form.GetInputValue(5);
-            compnode.OnOffValues[config.Input6OutChannel] = form.GetInputValue(6);
+            OnOffNodes.Find(c => c._id == 1).value = form.GetInputValue(1);
+            OnOffNodes.Find(c => c._id == 2).value = form.GetInputValue(2);
+            OnOffNodes.Find(c => c._id == 3).value = form.GetInputValue(3);
+            OnOffNodes.Find(c => c._id == 4).value = form.GetInputValue(4);
+            OnOffNodes.Find(c => c._id == 5).value = form.GetInputValue(5);
+            OnOffNodes.Find(c => c._id == 6).value = form.GetInputValue(6);
         }
     }
 }

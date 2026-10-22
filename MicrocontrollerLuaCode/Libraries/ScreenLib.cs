@@ -90,32 +90,36 @@ namespace MicrocontrollerLuaCode.Libraries
 
             screen_table["drawText"] = new LuaFunction((context, ct) =>
             {
-                int arg0 = (int)System.Math.Round(context.GetArgument<double>(0));
-                int arg1 = (int)System.Math.Round(context.GetArgument<double>(1));
-                string arg2 = context.GetArgument<string>(2);
+                int x = (int)Math.Round(context.GetArgument<double>(0));
+                int y = (int)Math.Round(context.GetArgument<double>(1));
 
-                screen.drawText(arg0, arg1, arg2);
+                object value = context.GetArgument<object>(2);
+                string text = value?.ToString() ?? "nil";
+
+                screen.drawText(x, y, text);
                 return new(0);
             });
 
             screen_table["drawTextBox"] = new LuaFunction((context, ct) =>
             {
-                int arg0 = (int)System.Math.Round(context.GetArgument<double>(0));
-                int arg1 = (int)System.Math.Round(context.GetArgument<double>(1));
-                int arg2 = (int)System.Math.Round(context.GetArgument<double>(2));
-                int arg3 = (int)System.Math.Round(context.GetArgument<double>(3));
-                string arg4 = context.GetArgument<string>(4);
+                int x = (int)System.Math.Round(context.GetArgument<double>(0));
+                int y = (int)System.Math.Round(context.GetArgument<double>(1));
+                int w = (int)System.Math.Round(context.GetArgument<double>(2));
+                int h = (int)System.Math.Round(context.GetArgument<double>(3));
 
-                short arg5 = -1;
-                short arg6 = -1;
+                object value = context.GetArgument<object>(4);
+                string text = value?.ToString() ?? "nil";
+
+                short h_alighn = -1;
+                short v_alighn = -1;
 
                 if (context.ArgumentCount > 5)
                 {
-                    arg5 = (short)System.Math.Round(context.GetArgument<double>(5));
-                    arg6 = (short)System.Math.Round(context.GetArgument<double>(6));
+                    h_alighn = (short)System.Math.Round(context.GetArgument<double>(5));
+                    v_alighn = (short)System.Math.Round(context.GetArgument<double>(6));
                 }
 
-                screen.drawTextBox(arg0, arg1, arg2, arg3, arg4,arg5, arg6);
+                screen.drawTextBox(x, y, w, h, text, h_alighn, v_alighn);
                 return new(0);
             });
 
