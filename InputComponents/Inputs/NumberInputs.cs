@@ -11,6 +11,12 @@ namespace InputComponents
 {
     internal partial class NumberInputs : Form
     {
+        private decimal N1_Val = 0;
+        private decimal N2_Val = 0;
+        private decimal N3_Val = 0;
+        private decimal N4_Val = 0;
+        private decimal N5_Val = 0;
+        private decimal N6_Val = 0;
         internal NumberInputs()
         {
             InitializeComponent();
@@ -53,22 +59,22 @@ namespace InputComponents
             switch (input_nr)
             {
                 case 1:
-                    return (double)N1.Value;
+                    return (double)N1_Val;
 
                 case 2:
-                    return (double)N2.Value;
+                    return (double)N2_Val;
 
                 case 3:
-                    return (double)N3.Value;
+                    return (double)N3_Val;
 
                 case 4:
-                    return (double)N4.Value;
+                    return (double)N4_Val;
 
                 case 5:
-                    return (double)N5.Value;
+                    return (double)N5_Val;
 
                 case 6:
-                    return (double)N6.Value;
+                    return (double)N6_Val;
 
                 default:
                     Console.WriteLine("input_nr out of range (1-6)");
@@ -108,6 +114,36 @@ namespace InputComponents
                     Console.WriteLine("input_nr out of range (1-6)");
                     break;
             }
+        }
+
+        private void N1_ValueChanged(object sender, EventArgs e)
+        {
+            N1_Val = N1.Value;
+        }
+
+        private void N2_ValueChanged(object sender, EventArgs e)
+        {
+            N2_Val = N2.Value;
+        }
+
+        private void N3_ValueChanged(object sender, EventArgs e)
+        {
+            N3_Val = N3.Value;
+        }
+
+        private void N4_ValueChanged(object sender, EventArgs e)
+        {
+            N4_Val = N4.Value;
+        }
+
+        private void N5_ValueChanged(object sender, EventArgs e)
+        {
+            N5_Val = N5.Value;
+        }
+
+        private void N6_ValueChanged(object sender, EventArgs e)
+        {
+            N6_Val = N6.Value;
         }
     }
 }
